@@ -120,4 +120,10 @@ export interface Robot {
 	 * Get the current screen orientation.
 	 */
 	getOrientation(): Promise<Orientation>;
+
+	/**
+	 * Set the UI mode (light/dark theme) on Android devices.
+	 * @param mode The desired UI mode ("light" or "dark")
+	 */
+	setUiMode?(mode: "light" | "dark"): Promise<void>;
 }

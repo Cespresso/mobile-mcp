@@ -319,6 +319,11 @@ export class AndroidRobot implements Robot {
 		return rotation === "0" ? "portrait" : "landscape";
 	}
 
+	public async setUiMode(mode: "light" | "dark"): Promise<void> {
+		const nightMode = mode === "dark" ? "yes" : "no";
+		this.adb("shell", "cmd", "uimode", "night", nightMode);
+	}
+
 	private async getUiAutomatorDump(): Promise<string> {
 		for (let tries = 0; tries < 10; tries++) {
 			const dump = this.adb("exec-out", "uiautomator", "dump", "/dev/tty").toString();

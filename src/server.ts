@@ -488,6 +488,24 @@ export const createMcpServer = (): McpServer => {
 		}
 	);
 
+	tool(
+		"mobile_set_ui_mode",
+		"Set the UI mode (light/dark theme) on Android device",
+		{
+			mode: z.enum(["light", "dark"]).describe("The desired UI mode"),
+		},
+		async ({ mode }) => {
+			requireRobot();
+
+			if (!robot!.setUiMode) {
+				throw new ActionableError("Setting UI mode is only supported on Android devices");
+			}
+
+			await robot!.setUiMode(mode);
+			return `Changed UI mode to ${mode}`;
+		}
+	);
+
 	// async check for latest agent version
 	checkForLatestAgentVersion().then();
 
